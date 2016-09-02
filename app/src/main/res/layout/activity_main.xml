@@ -66,38 +66,52 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:text="Alta"
+        android:id="@+id/btAlta"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="alta" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
+        android:text="Consulta por código"
+        android:id="@+id/btConsultaCodigo"
+        android:layout_below="@+id/btAlta"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="consulCodigo" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3"
-        android:layout_below="@+id/button2"
+        android:text="Consulta por descripción"
+        android:id="@+id/btConsulatDescripcion"
+        android:layout_below="@+id/btConsultaCodigo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="consulDescripcion" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button4"
-        android:layout_below="@+id/button3"
+        android:text="Baja por código"
+        android:id="@+id/btBaja"
+        android:layout_below="@+id/btConsulatDescripcion"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="baja" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modificación"
+        android:id="@+id/btModificacion"
+        android:layout_below="@+id/btBaja"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="modificacion" />
 
 
 </RelativeLayout>
