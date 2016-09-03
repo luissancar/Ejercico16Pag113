@@ -1,6 +1,7 @@
 package com.example.luissancar.ejercico16pag113;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,42 +31,35 @@ public class MainActivity extends AppCompatActivity {
         String nombre=etNombre.getText().toString();
         String precio=etPrecio.getText().toString();
 
-        Exception ex = null;
         SQLiteDatabase db = null;
-        boolean bTrans = false;
+        AdminSQL admin = new AdminSQL(this, "basenombres", null, 1);
+        db = admin.getWritableDatabase();
+        db.beginTransaction();
         try {
-            AdminSQL admin = new AdminSQL(this, "basenombres", null, 1);
-            db = admin.getWritableDatabase();
-            db.beginTransaction();
-            //bTrans = true;
-            ContentValues registro = new ContentValues();
-            registro.put("codigo", codigo);
-            registro.put("descripcion", nombre);
-            registro.put("precio", precio);
-            db.insert("articulos", null, registro);
-
-            db.setTransactionSuccessful();
-            db.close();
-            Toast.makeText(this,"Insertado",Toast.LENGTH_LONG).show();
+            String sql="SELECT codigo FROM articulos WHERE codigo="+etCodigo.getText().toString();
+            Cursor cursor=db.rawQuery(sql,null);
+            if (!cursor.moveToFirst()) {
+                ContentValues registro = new ContentValues();
+                registro.put("codigo", codigo);
+                registro.put("descripcion", nombre);
+                registro.put("precio", precio);
+                db.insert("articulos", null, registro);
+                db.setTransactionSuccessful();
+                Toast.makeText(this, "Insertado", Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(this, "Error registro duplicado", Toast.LENGTH_LONG).show();
         }
-        catch ( android.database.sqlite.SQLiteConstraintException e){
+        catch ( Exception e){
             Toast.makeText(this,"Erro:"+e.getMessage().toString(),Toast.LENGTH_LONG).show();
-            ex=e;
         }
-
-        if (db != null) {
-            if (bTrans != false)
-                db.endTransaction();
-
+        finally {
+            db.endTransaction();
             db.close();
-        }
-
-        if (ex != null)
-            Toast.makeText(this,"Erro:"+ex.getMessage().toString(),Toast.LENGTH_LONG).show();;
             etCodigo.setText("");
             etNombre.setText("");
             etPrecio.setText("");
-
+        }
 
 
 
