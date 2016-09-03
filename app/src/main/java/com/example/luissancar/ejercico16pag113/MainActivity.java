@@ -68,6 +68,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void consulCodigo(View view){
 
+        String codigo=etCodigo.getText().toString();
+
+        SQLiteDatabase db = null;
+        AdminSQL admin = new AdminSQL(this, "basenombres", null, 1);
+        db = admin.getWritableDatabase();
+        try {
+            String sql="SELECT codigo FROM articulos WHERE codigo="+etCodigo.getText().toString();
+            Cursor cursor=db.rawQuery(sql,null);
+            if (cursor.moveToFirst()) {
+                etNombre.setText(cursor.getString(1));
+                //etPrecio.setText(cursor.get.getString(1));
+            }
+            else {
+                Toast.makeText(this, "Error registro inexistente", Toast.LENGTH_LONG).show();
+
+                etCodigo.setText("");
+                etNombre.setText("");
+                etPrecio.setText("");
+            }
+        }
+        catch ( Exception e){
+            Toast.makeText(this,"Error:"+e.getMessage().toString(),Toast.LENGTH_LONG).show();
+        }
+        finally {
+            db.close();
+        }
+
+
+
     }
 
     public void consulDescripcion(View view){
